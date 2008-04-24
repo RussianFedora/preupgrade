@@ -1,8 +1,8 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
-Version: 0.9
-Release: 2%{?dist}
+Version: 0.9.2
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
@@ -29,7 +29,7 @@ rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 ln -s consolehelper $RPM_BUILD_ROOT/%{_bindir}/%{name}
-rm -rf $RPM_BUILD_ROOT/%{_sbindir}/%{name}-cli
+ln -s consolehelper $RPM_BUILD_ROOT/%{_bindir}/%{name}-cli
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -43,10 +43,19 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/security/console.apps/*
 %{_datadir}/%{name}/*
 %{_sbindir}/%{name}
+%{_sbindir}/%{name}-cli
 %{_bindir}/%{name}
+%{_bindir}/%{name}-cli
 %{python_sitelib}/%{name}
 
 %changelog
+* Thu Apr 24 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.2-1
+- 0.9.2 
+- put cli tool back in 
+
+* Mon Apr 21 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.1-1
+- 0.9.1
+
 * Mon Apr  7 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9-2
 - add dist tag
 - fix buildroot
