@@ -1,7 +1,7 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
-Version: 0.9.2
+Version: 0.9.3
 Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
@@ -12,6 +12,7 @@ BuildArch: noarch
 Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
 Requires: yum-metadata-parser, yum >= 3.2.8
 Requires: usermode
+Requires(post): mkinitrd
 BuildRequires: desktop-file-utils, python
 
 %description
@@ -34,6 +35,9 @@ ln -s consolehelper $RPM_BUILD_ROOT/%{_bindir}/%{name}-cli
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+/sbin/grubby --remove-kernel=/boot/upgrade/vmlinuz
+%{__rm} -rf /boot/upgrade
 
 %files
 %defattr(-, root, root)
@@ -49,6 +53,14 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Fri May  2 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.3-1
+- 0.9.3
+
+
+* Thu May  1 2008 Seth Vidal <skvidal at fedoraproject.org> 
+- make preupgrade clean up its messes in %post so it doesn't leave
+  cruft on the fs after an upgrade.
+
 * Thu Apr 24 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.2-1
 - 0.9.2 
 - put cli tool back in 
