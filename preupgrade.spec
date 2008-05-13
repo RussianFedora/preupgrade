@@ -2,10 +2,12 @@
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
 Version: 0.9.3
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
+Patch0: enable-f9.patch
+Patch1: retrieve-treeinfo-from-instrepo.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -21,6 +23,8 @@ ready for an upgrade via anaconda.
 
 %prep
 %setup -q
+%patch0 -p0
+%patch1 -p0 
 
 %build
 # no op
@@ -53,6 +57,12 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Tue May 13 2008 Will Woods <wwoods@redhat.com> - 0.9.3-3
+- Fix hang on "Downloading installer metadata" (bug #446244)
+
+* Tue May 13 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.3-2
+- enable F9 in releases.list
+
 * Fri May  2 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.3-1
 - 0.9.3
 
