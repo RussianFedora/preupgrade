@@ -2,10 +2,11 @@
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
 Version: 0.9.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
+Patch0: enable-f9.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -21,6 +22,7 @@ ready for an upgrade via anaconda.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 # no op
@@ -53,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Tue May 13 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.3-2
+- enable F9 in releases.list
+
 * Fri May  2 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.3-1
 - 0.9.3
 
