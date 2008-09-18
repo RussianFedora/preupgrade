@@ -1,19 +1,27 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
-Version: 0.9.3
-Release: 3%{?dist}
+Version: 0.9.8
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
-Patch0: enable-f9.patch
-Patch1: retrieve-treeinfo-from-instrepo.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
-Requires: yum-metadata-parser, yum >= 3.2.8
+Requires: pyxf86config
+# preupgrade-gui requires pygtk2 and libglade
+# FIXME: split out preupgrade-gtk subpackage that requires this
+Requires: pygtk2-libglade
+# F10 anaconda provides its special depsolving magic as yum plugins
+Requires: anaconda-yum-plugins
+# F10 anaconda expects to be handed a valid yum repo
+Requires: createrepo
+# yum 3.2.18 is needed to enable the above plugins at runtime
+Requires: yum-metadata-parser, yum >= 3.2.18
 Requires: usermode
+Requires: e2fsprogs
 Requires(post): mkinitrd
 BuildRequires: desktop-file-utils, python
 
@@ -23,8 +31,6 @@ ready for an upgrade via anaconda.
 
 %prep
 %setup -q
-%patch0 -p0
-%patch1 -p0 
 
 %build
 # no op
@@ -57,11 +63,18 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
-* Tue May 13 2008 Will Woods <wwoods@redhat.com> - 0.9.3-3
-- Fix hang on "Downloading installer metadata" (bug #446244)
+* Thu Sep 18 2008 Will Woods <wwoods@redhat.com> - 0.9.8-1
+- GUI version prompts to resume interrupted runs
+- Checks for available disk space before downloading / rebooting
+- Does not change boot target until you hit the Reboot button
+- Handle invalid treeinfo gracefully (bug #459935)
+- Use UUID=xxx for devices - makes finding devices much more robust
+- No more network dialog for missing packages
+- Use anaconda's own depsolving tweaks (whiteout/blacklist)
+- Use kickstart to automate installs
 
-* Tue May 13 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.3-2
-- enable F9 in releases.list
+* Tue May  6 2008 Will Woods <wwoods@redhat.com> - 0.9.3-2
+- Add missing Requires on pyxf86config
 
 * Fri May  2 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.3-1
 - 0.9.3
