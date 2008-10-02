@@ -2,10 +2,12 @@
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
 Version: 0.9.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
+Patch1: preupgrade-0.9.8-fix-resume.patch
+Patch2: preupgrade-0.9.8-f10beta.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -31,6 +33,8 @@ ready for an upgrade via anaconda.
 
 %prep
 %setup -q
+%patch1 -p1 -b .fix-resume
+%patch2 -p1 -b .f10beta
 
 %build
 # no op
@@ -63,6 +67,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Thu Oct  2 2008 Will Woods <wwoods@redhat.com> - 0.9.8-2
+- Clear cache after user decides not to resume an old run
+- Add Fedora 10 Beta to releases.list
+
 * Thu Sep 18 2008 Will Woods <wwoods@redhat.com> - 0.9.8-1
 - GUI version prompts to resume interrupted runs
 - Checks for available disk space before downloading / rebooting
