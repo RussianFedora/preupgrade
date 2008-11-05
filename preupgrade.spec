@@ -1,13 +1,12 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
-Version: 0.9.8
-Release: 2%{?dist}
+Version: 0.9.9
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
-Patch1: preupgrade-0.9.8-fix-resume.patch
-Patch2: preupgrade-0.9.8-f10beta.patch
+Source1: http://mirrors.fedoraproject.org/releases.txt
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -21,7 +20,8 @@ Requires: anaconda-yum-plugins
 # F10 anaconda expects to be handed a valid yum repo
 Requires: createrepo
 # yum 3.2.18 is needed to enable the above plugins at runtime
-Requires: yum-metadata-parser, yum >= 3.2.18
+# yum 3.2.19 is needed for setup_locale(), which fixes some i18n tracebacks
+Requires: yum-metadata-parser, yum >= 3.2.19
 Requires: usermode
 Requires: e2fsprogs
 Requires(post): mkinitrd
@@ -33,8 +33,6 @@ ready for an upgrade via anaconda.
 
 %prep
 %setup -q
-%patch1 -p1 -b .fix-resume
-%patch2 -p1 -b .f10beta
 
 %build
 # no op
@@ -45,18 +43,18 @@ make DESTDIR=$RPM_BUILD_ROOT install
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 ln -s consolehelper $RPM_BUILD_ROOT/%{_bindir}/%{name}
 ln -s consolehelper $RPM_BUILD_ROOT/%{_bindir}/%{name}-cli
+# NOTE: we ship this *only* for PackageKit - it is ignored by preupgrade!
+# preupgrade itself pulls data from {$PWD,$PWD/data}/releases.txt or
+# http://mirrors.fedoraproject.org/releases.txt
+install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/grubby --remove-kernel=/boot/upgrade/vmlinuz
-%{__rm} -rf /boot/upgrade
-
 %files
 %defattr(-, root, root)
 %dir %{_datadir}/%{name}
-%doc ChangeLog README COPYING
+%doc ChangeLog README COPYING data/releases.txt
 %config(noreplace) %{_sysconfdir}/pam.d/*
 %config(noreplace) %{_sysconfdir}/security/console.apps/*
 %{_datadir}/%{name}/*
@@ -67,6 +65,15 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Mon Nov  3 2008 Will Woods <wwoods@redhat.com> - 0.9.9-1
+- Fetch release data from http://mirrors.fedoraproject.org/releases.txt
+- Recognize new metadata filenames
+- Generate kickstart for all installs
+- Automatically upgrade bootloader config during upgrade
+- preupgrade-cli: Add --vnc for headless remote installs
+- preupgrade-cli: Properly set locale so we don't crash on non-en_US
+- preupgrade-cli: Fix --help 
+
 * Thu Oct  2 2008 Will Woods <wwoods@redhat.com> - 0.9.8-2
 - Clear cache after user decides not to resume an old run
 - Add Fedora 10 Beta to releases.list

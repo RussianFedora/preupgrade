@@ -1,0 +1,64 @@
+# releases.list - a list of available Fedora releases.
+#
+# Format is as follows:
+#
+#[Release Name] 
+#   - Header for this release. Typically: [Fedora X (Codename)]
+#version=FLOAT 
+#   - Required. Version number for this release.
+#stable=BOOL 
+#   - Optional. Marks a release as stable/final. Defaults to false. 
+#preupgrade-ok=BOOL
+#   - Optional. Marks a release as usable with preupgrade. Defaults to false.
+#eol-date=YYYYMMDD
+#   - Optional. Gives the date on which the release stops getting updates.
+#mirrorlist=URL
+#   - Mirrorlist URL for this release.
+#baseurl=URL
+#   - Single URL for this release.
+#installmirrorlist=URL
+#   - Mirrorlist for the *installable tree* for this release
+#     (i.e. this address needs an images/ dir and .treeinfo)
+#installurl=URL
+#   - Single URL for the installable tree.
+#
+# One of (mirrorlist or baseurl) is required. If those trees do not contain
+# boot images (like Fedora 8's Everything tree) then an installurl or
+# installmirrorlist is required.
+
+[Rawhide]
+# Rawhide is *always* the newest
+stable=False
+preupgrade-ok=True
+version=999
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=rawhide&arch=$basearch
+#baseurl=http://download.fedora.redhat.com/pub/fedora/linux/development/$basearch/os
+
+[Fedora 10 (Cambridge) Beta]
+stable=False
+preupgrade-ok=True
+version=9.92
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/releases/test/10-Beta/Fedora/$basearch/os
+
+# You can't reliably preupgrade to these.
+# They're only here so we know when they've gone EOL.
+[Fedora 9 (Sulphur)]
+stable=True
+version=9
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-9&arch=$basearch
+installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/releases/9/Fedora/$basearch/os
+
+[Fedora 8 (Werewolf)]
+stable=True
+version=8
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-8&arch=$basearch
+installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/releases/8/Fedora/$basearch/os
+
+[Fedora 7 (Moonshine)]
+stable=True
+version=7
+eol-date=20080613
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-7&arch=$basearch
+installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/releases/7/Fedora/$basearch/os
+
+# vim: syntax=dosini
