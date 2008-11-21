@@ -1,7 +1,7 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
-Version: 0.9.9
+Version: 1.0.0
 Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
@@ -11,9 +11,8 @@ URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
-Requires: pyxf86config
 # preupgrade-gui requires pygtk2 and libglade
-# FIXME: split out preupgrade-gtk subpackage that requires this
+# TODO: split out preupgrade-gtk subpackage that requires this
 Requires: pygtk2-libglade
 # F10 anaconda provides its special depsolving magic as yum plugins
 Requires: anaconda-yum-plugins
@@ -24,8 +23,10 @@ Requires: createrepo
 Requires: yum-metadata-parser, yum >= 3.2.19
 Requires: usermode
 Requires: e2fsprogs
-Requires(post): mkinitrd
 BuildRequires: desktop-file-utils, python
+# preupgrade's use of long append="..." strings will break older yaboot
+# and thus render ppc systems unbootable - see bug #471321
+Conflicts: yaboot < 1.3.14-8
 
 %description
 Preresolves all dependencies, downloads the packages and makes your system 
@@ -65,6 +66,15 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Fri Nov 21 2008 Will Woods <wwoods@redhat.com> - 1.0.0-1
+- Minor UI fixes
+- Add --clean flag
+- Use checksums to verify boot image integrity
+- Clean up bootloader config when cleaning an interrupted run
+- Use 'ybin --bootonce' on ppc rather than changing default boot target
+- Be more careful about picking a keymap (bug 471515)
+- Add Fedora 10 (Cambridge) to releases.txt
+
 * Mon Nov  3 2008 Will Woods <wwoods@redhat.com> - 0.9.9-1
 - Fetch release data from http://mirrors.fedoraproject.org/releases.txt
 - Recognize new metadata filenames
