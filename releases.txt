@@ -1,5 +1,7 @@
-# releases.list - a list of available Fedora releases.
+# Example releases.list.
+# The official version is here: http://mirrors.fedoraproject.org/releases.txt
 #
+# This file contains a list of available Fedora releases.
 # Format is as follows:
 #
 #[Release Name] 
@@ -34,11 +36,12 @@ version=999
 mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=rawhide&arch=$basearch
 #baseurl=http://download.fedora.redhat.com/pub/fedora/linux/development/$basearch/os
 
-[Fedora 10 (Cambridge) Beta]
-stable=False
+[Fedora 10 (Cambridge)]
+stable=True
 preupgrade-ok=True
-version=9.92
-mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/releases/test/10-Beta/Fedora/$basearch/os
+version=10
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-10&arch=$basearch
+installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/releases/10/Fedora/$basearch/os
 
 # You can't reliably preupgrade to these.
 # They're only here so we know when they've gone EOL.
