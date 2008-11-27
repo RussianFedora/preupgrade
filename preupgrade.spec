@@ -26,7 +26,15 @@ Requires: e2fsprogs
 BuildRequires: desktop-file-utils, python
 # preupgrade's use of long append="..." strings will break older yaboot
 # and thus render ppc systems unbootable - see bug #471321
+%if 0%{?fedora} == 8
+Conflicts: yaboot < 1.3.13-9
+%endif
+%if 0%{?fedora} == 9
+Conflicts: yaboot < 1.3.13-13
+%endif
+%if 0%{?fedora} >= 10
 Conflicts: yaboot < 1.3.14-8
+%endif
 
 %description
 Preresolves all dependencies, downloads the packages and makes your system 
