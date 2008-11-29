@@ -2,7 +2,7 @@
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
 Version: 1.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1.0.0-2
+- Rebuild for Python 2.6
+
 * Fri Nov 21 2008 Will Woods <wwoods@redhat.com> - 1.0.0-1
 - Minor UI fixes
 - Add --clean flag
