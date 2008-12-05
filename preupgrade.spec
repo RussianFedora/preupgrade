@@ -1,8 +1,8 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
-Version: 1.0.0
-Release: 2%{?dist}
+Version: 1.0.1
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
@@ -74,8 +74,13 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
-* Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1.0.0-2
-- Rebuild for Python 2.6
+* Mon Dec  8 2008 Will Woods <wwoods@redhat.com> - 1.0.1-1
+- Fix yaboot Conflicts: to allow installation on ppc (bug 473065)
+- Fix crash with separate /var partition or mdraid root (bug 473782)
+- Fix crash with mdraid (software RAID) root (bug 473103)
+- CLI: Use the right dir for createrepo 
+- CLI: Fix network option parsing, add --dhcp
+- CLI: Write network options into ks.cfg (bug 472933)
 
 * Fri Nov 21 2008 Will Woods <wwoods@redhat.com> - 1.0.0-1
 - Minor UI fixes
