@@ -2,7 +2,7 @@
 Summary: Preresolves dependencies and prepares a system for an upgrade
 Name: preupgrade
 Version: 1.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Thu Feb 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Mon Dec  8 2008 Will Woods <wwoods@redhat.com> - 1.0.1-1
 - Fix yaboot Conflicts: to allow installation on ppc (bug 473065)
 - Fix crash with separate /var partition or mdraid root (bug 473782)
