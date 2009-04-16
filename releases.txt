@@ -1,7 +1,5 @@
-# Example releases.list.
-# The official version is here: http://mirrors.fedoraproject.org/releases.txt
+# releases.list - a list of available Fedora releases.
 #
-# This file contains a list of available Fedora releases.
 # Format is as follows:
 #
 #[Release Name] 
@@ -54,6 +52,7 @@ installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/li
 [Fedora 8 (Werewolf)]
 stable=True
 version=8
+eol-date=20090107
 mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-8&arch=$basearch
 installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/releases/8/Fedora/$basearch/os
 
