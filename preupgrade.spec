@@ -2,11 +2,11 @@
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.0
-Release: 0.pre1%{?dist}
+Release: 0.pre2%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 #Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
-Source: preupgrade-1.1.0pre1.tar.bz2
+Source: preupgrade-1.1.0pre2.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -43,7 +43,7 @@ by examining your system, downloading all the files needed for the upgrade,
 and then setting up your system to perform the upgrade after rebooting.
 
 %prep
-%setup -q -n preupgrade-1.1.0pre1
+%setup -q -n preupgrade-1.1.0pre2
 
 %build
 # no op
@@ -76,6 +76,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Wed Apr 22 2009 Will Woods <wwoods@redhat.com> - 1.1.0-0.pre2
+- Disable bootloader installation (bug 496952)
+- Fix handling of releases.txt to accept Rawhide again
+
 * Thu Apr 16 2009 Will Woods <wwoods@redhat.com> - 1.1.0-0.pre1
 - Try to get new packages for *all* repos, including updates (bug 473966)
 - Fix UnicodeDecodeError downloading packages (bug 476862)
