@@ -2,11 +2,10 @@
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.0
-Release: 0.pre3%{?dist}
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
-#Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.gz
-Source: preupgrade-1.1.0pre3.tar.bz2
+Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -43,7 +42,7 @@ by examining your system, downloading all the files needed for the upgrade,
 and then setting up your system to perform the upgrade after rebooting.
 
 %prep
-%setup -q -n preupgrade-1.1.0pre3
+%setup -q
 
 %build
 # no op
@@ -76,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Wed May 13 2009 Will Woods <wwoods@redhat.com> - 1.1.0-1
+- Bump version for 1.1.0 release
+
 * Tue May 5 2009 Will Woods <wwoods@redhat.com> - 1.1.0-0.pre3
 - Drop support for /boot on RAID
 - Properly enable both main and install repos

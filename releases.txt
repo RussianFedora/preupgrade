@@ -1,5 +1,7 @@
-# releases.list - a list of available Fedora releases.
+# Example releases.list.
+# The official version is here: http://mirrors.fedoraproject.org/releases.txt
 #
+# This file contains a list of available Fedora releases.
 # Format is as follows:
 #
 #[Release Name] 
@@ -13,9 +15,9 @@
 #eol-date=YYYYMMDD
 #   - Optional. Gives the date on which the release stops getting updates.
 #mirrorlist=URL
-#   - Mirrorlist URL for this release.
+#   - Mirrorlist URL for the main repo for this release.
 #baseurl=URL
-#   - Single URL for this release.
+#   - Single URL for the main repo for this release.
 #installmirrorlist=URL
 #   - Mirrorlist for the *installable tree* for this release
 #     (i.e. this address needs an images/ dir and .treeinfo)
@@ -27,12 +29,19 @@
 # installmirrorlist is required.
 
 [Rawhide]
-# Rawhide is *always* the newest
+# Rawhide is *always* the newest - hence version 999
 stable=False
 preupgrade-ok=True
 version=999
 mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=rawhide&arch=$basearch
 #baseurl=http://download.fedora.redhat.com/pub/fedora/linux/development/$basearch/os
+
+[Fedora 11 (Leonidas)]
+stable=True
+preupgrade-ok=True
+version=11
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-11&arch=$basearch
+installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/releases/11/Fedora/$basearch/os
 
 [Fedora 10 (Cambridge)]
 stable=True
