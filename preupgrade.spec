@@ -2,7 +2,7 @@
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
@@ -77,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Wed May 13 2009 Will Woods <wwoods@redhat.com> - 1.1.0-1
 - Bump version for 1.1.0 release
 
