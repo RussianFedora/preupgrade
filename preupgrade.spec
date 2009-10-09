@@ -1,13 +1,12 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.0
-Release: 3%{?dist}
+Version: 1.1.1
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
-Patch1: 0001-Fix-use-of-PUError-in-preupgrade.dev-bug-504826.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -23,7 +22,12 @@ Requires: createrepo
 # yum 3.2.19 is needed for setup_locale(), which fixes some i18n tracebacks
 Requires: yum-metadata-parser, yum >= 3.2.19
 Requires: usermode
+# blkid moved from e2fsprogs to util-linux-ng in 2.15.1
+%if 0%{?fedora} >= 12
+Requires: util-linux-ng >= 2.15.1
+%else
 Requires: e2fsprogs
+%endif
 BuildRequires: desktop-file-utils, python
 # preupgrade's use of long append="..." strings will break older yaboot
 # and thus render ppc systems unbootable - see bug #471321
@@ -44,7 +48,6 @@ and then setting up your system to perform the upgrade after rebooting.
 
 %prep
 %setup -q
-%patch1 -p1 -b .504826
 
 %build
 # no op
@@ -77,6 +80,11 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Fri Oct 09 2009 Will Woods <wwoods@redhat.com> - 1.1.1-1
+- Fix UI hang on upgrades from F11 (bug 526208)
+- Fix unhandled traceback in preupgrade.dev (bug 504826)
+- Give preupgrade its own User-Agent string
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
