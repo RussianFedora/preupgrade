@@ -2,7 +2,7 @@
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
@@ -20,7 +20,8 @@ Requires: anaconda-yum-plugins
 Requires: createrepo
 # yum 3.2.18 is needed to enable the above plugins at runtime
 # yum 3.2.19 is needed for setup_locale(), which fixes some i18n tracebacks
-Requires: yum-metadata-parser, yum >= 3.2.19
+# 3.2.24 fixes some unicode reading issues
+Requires: yum-metadata-parser, yum >= 3.2.24
 Requires: usermode
 # blkid moved from e2fsprogs to util-linux-ng in 2.15.1
 %if 0%{?fedora} >= 12
@@ -80,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Fri Oct  9 2009 Seth Vidal <skvidal at fedoraproject.org>
+- require yum 3.2.24
+
 * Fri Oct 09 2009 Will Woods <wwoods@redhat.com> - 1.1.1-1
 - Fix UI hang on upgrades from F11 (bug 526208)
 - Fix unhandled traceback in preupgrade.dev (bug 504826)
