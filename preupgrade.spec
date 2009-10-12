@@ -1,27 +1,26 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.1
-Release: 3%{?dist}
+Version: 1.1.2
+Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
-Patch1: preupgrade-1.1.1-fix-progress-page-typo.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
 # preupgrade-gui requires pygtk2 and libglade
 # TODO: split out preupgrade-gtk subpackage that requires this
-Requires: pygtk2-libglade
+# NOTE gtk 2.16.6 changed button behavior for GtkAssistant (gnome bug 589745),
+# and we expect that behavior, so require gtk2 >= 2.16.6
+Requires: pygtk2-libglade, gtk2 >= 2.16.6
 # F10 anaconda provides its special depsolving magic as yum plugins
 Requires: anaconda-yum-plugins
 # F10 anaconda expects to be handed a valid yum repo
 Requires: createrepo
-# yum 3.2.18 is needed to enable the above plugins at runtime
-# yum 3.2.19 is needed for setup_locale(), which fixes some i18n tracebacks
-# 3.2.24 fixes some unicode reading issues
+# yum 3.2.24 fixes some unicode reading issues - see bug 527552
 Requires: yum-metadata-parser, yum >= 3.2.24
 Requires: usermode
 # blkid moved from e2fsprogs to util-linux-ng in 2.15.1
@@ -33,15 +32,7 @@ Requires: e2fsprogs
 BuildRequires: desktop-file-utils, python
 # preupgrade's use of long append="..." strings will break older yaboot
 # and thus render ppc systems unbootable - see bug #471321
-%if 0%{?fedora} == 8
-Conflicts: yaboot < 1.3.13-9
-%endif
-%if 0%{?fedora} == 9
-Conflicts: yaboot < 1.3.13-13
-%endif
-%if 0%{?fedora} >= 10
 Conflicts: yaboot < 1.3.14-8
-%endif
 
 %description
 preupgrade prepares your Fedora system for an upgrade to the next version
@@ -50,7 +41,6 @@ and then setting up your system to perform the upgrade after rebooting.
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 # no op
@@ -83,8 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
-* Mon Oct 12 2009 Will Woods <wwoods@redhat.com> - 1.1.1-3
-- Typo fix for bug 526208
+* Mon Oct 12 2009 Will Woods <wwoods@redhat.com> - 1.1.2-1
+- Proper fix for bug 526208
+- Require gtk2 >= 2.16.6
 
 * Fri Oct  9 2009 Seth Vidal <skvidal at fedoraproject.org> - 1.1.1-2
 - require yum 3.2.24
