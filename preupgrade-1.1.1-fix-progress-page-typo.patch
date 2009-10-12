@@ -1,0 +1,19 @@
+commit 3ab181e2bcd08e8727ce205e6049944c4e2fd073
+Author: Will Woods <wwoods@redhat.com>
+Date:   Mon Oct 12 10:26:09 2009 -0400
+
+    Fix typo in commit 112fc881
+
+diff --git a/preupgrade-gtk.py b/preupgrade-gtk.py
+index 2d56323..76252b7 100755
+--- a/preupgrade-gtk.py
++++ b/preupgrade-gtk.py
+@@ -236,7 +236,7 @@ class PreUpgradeController(Controller):
+         Do the real action.
+         '''
+         self.ui.page_num = 2 # progress page
+-        self.ui.assistant.set_current.page(self.ui.page_num)
++        self.ui.assistant.set_current_page(self.ui.page_num)
+         self._do_main()
+ 
+     def _find_cancel(self, widget):

@@ -2,11 +2,12 @@
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
+Patch1: preupgrade-1.1.1-fix-progress-page-typo.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -49,6 +50,7 @@ and then setting up your system to perform the upgrade after rebooting.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 # no op
@@ -81,7 +83,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
-* Fri Oct  9 2009 Seth Vidal <skvidal at fedoraproject.org>
+* Mon Oct 12 2009 Will Woods <wwoods@redhat.com> - 1.1.1-3
+- Typo fix for bug 526208
+
+* Fri Oct  9 2009 Seth Vidal <skvidal at fedoraproject.org> - 1.1.1-2
 - require yum 3.2.24
 
 * Fri Oct 09 2009 Will Woods <wwoods@redhat.com> - 1.1.1-1
