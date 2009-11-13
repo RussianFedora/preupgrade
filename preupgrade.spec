@@ -1,7 +1,7 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.2
+Version: 1.1.3
 Release: 1.fc10
 License: GPLv2+
 Group: System Environment/Base
@@ -16,11 +16,13 @@ Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
 Requires: pygtk2-libglade
 # F10 anaconda provides its special depsolving magic as yum plugins
 Requires: anaconda-yum-plugins
-# F10 anaconda expects to be handed a valid yum repo
-Requires: createrepo
 # yum 3.2.24 fixes some unicode reading issues - see bug 527552
 Requires: yum-metadata-parser, yum >= 3.2.24
 Requires: usermode
+# F10 anaconda expects to be handed a valid yum repo
+# createrepo < 0.9.7 raises IndexError in _dump_base_items with yum >= 3.2.24
+# createrepo < 0.9.7-7 raises some weird errors dealing with sqlite
+Requires: createrepo >= 0.9.7-7
 # blkid moved from e2fsprogs to util-linux-ng in 2.15.1
 %if 0%{?fedora} >= 12
 Requires: util-linux-ng >= 2.15.1
@@ -71,6 +73,11 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Fri Nov 13 2009 Will Woods <wwoods@redhat.com> - 1.1.3-1.fc10
+- Check /boot for enough space to perform upgrade (bug 530541)
+- Don't traceback if /boot is RAID (bug 504826)
+- Check if /boot is dmraid
+
 * Mon Oct 12 2009 Will Woods <wwoods@redhat.com> - 1.1.2-1.fc10
 - Proper fix for bug 526208
 
