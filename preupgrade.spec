@@ -1,7 +1,7 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 License: GPLv2+
 Group: System Environment/Base
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Mon Dec 14 2009 Seth Vidal <skvidal at fedoraproject.org> - 1.1.4-1
+- fixes 538118 among others
+
 * Fri Nov 13 2009 Will Woods <wwoods@redhat.com> - 1.1.3-1
 - Check /boot for enough space to perform upgrade (bug 530541)
 - Don't traceback if /boot is RAID (bug 504826)
