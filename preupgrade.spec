@@ -1,8 +1,10 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%define alphatag .20100416git
+
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.4
-Release: 1%{?dist}
+Version: 1.1.5
+Release: 0.1%{?alphatag}%{?dist}
 License: GPLv2+
 Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
@@ -58,10 +60,12 @@ ln -s consolehelper $RPM_BUILD_ROOT/%{_bindir}/%{name}-cli
 # http://mirrors.fedoraproject.org/releases.txt
 install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 
+%find_lang %name
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(-, root, root)
 %dir %{_datadir}/%{name}
 %doc ChangeLog README COPYING data/releases.txt
@@ -75,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Fri Apr 16 2010 Richard Hughes <richard@hughsie.com> 1.1.5-0.1.20100416git
+- Update from git
+
 * Mon Dec 14 2009 Seth Vidal <skvidal at fedoraproject.org> - 1.1.4-1
 - fixes 538118 among others
 
