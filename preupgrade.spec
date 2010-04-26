@@ -1,14 +1,13 @@
 %{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.4
+Version: 1.1.5
 Release: 1%{?dist}
 License: GPLv2+
-Group: System Environment/Base
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
 URL: https://fedorahosted.org/preupgrade/
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
 # preupgrade-gui requires pygtk2 and libglade
@@ -31,6 +30,7 @@ Requires: util-linux-ng >= 2.15.1
 %else
 Requires: e2fsprogs
 %endif
+BuildRequires: intltool
 BuildRequires: desktop-file-utils, python
 # preupgrade's use of long append="..." strings will break older yaboot
 # and thus render ppc systems unbootable - see bug #471321
@@ -48,7 +48,6 @@ and then setting up your system to perform the upgrade after rebooting.
 # no op
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 ln -s consolehelper $RPM_BUILD_ROOT/%{_bindir}/%{name}
@@ -58,10 +57,9 @@ ln -s consolehelper $RPM_BUILD_ROOT/%{_bindir}/%{name}-cli
 # http://mirrors.fedoraproject.org/releases.txt
 install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+%find_lang %name
 
-%files
+%files -f %{name}.lang
 %defattr(-, root, root)
 %dir %{_datadir}/%{name}
 %doc ChangeLog README COPYING data/releases.txt
@@ -75,6 +73,10 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/%{name}
 
 %changelog
+* Mon Apr 26 2010 Richard Hughes <richard@hughsie.com> - 1.1.5-1
+- New upstream release.
+- Resolves: #562036, #575400, #572148
+
 * Mon Dec 14 2009 Seth Vidal <skvidal at fedoraproject.org> - 1.1.4-1
 - fixes 538118 among others
 
