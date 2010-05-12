@@ -2,7 +2,7 @@
 
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.5
+Version: 1.1.6
 Release: 1%{?dist}
 License: GPLv2+
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
@@ -10,21 +10,12 @@ Source1: http://mirrors.fedoraproject.org/releases.txt
 URL: https://fedorahosted.org/preupgrade/
 BuildArch: noarch
 Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
-# preupgrade-gui requires pygtk2 and libglade
-# TODO: split out preupgrade-gtk subpackage that requires this
-# NOTE gtk 2.16.6 changed button behavior for GtkAssistant (gnome bug 589745),
-# and we expect that behavior, so require gtk2 >= 2.16.6
 Requires: pygtk2-libglade, gtk2 >= 2.16.6
-# F10 anaconda provides its special depsolving magic as yum plugins
 Requires: anaconda-yum-plugins
-# yum 3.2.24 fixes some unicode reading issues - see bug 527552
+Requires: python-urlgrabber >= 3.9.1-4
 Requires: yum-metadata-parser, yum >= 3.2.24
 Requires: usermode
-# F10 anaconda expects to be handed a valid yum repo
-# createrepo < 0.9.7 raises IndexError in _dump_base_items with yum >= 3.2.24
-# createrepo < 0.9.7-7 raises some weird errors dealing with sqlite
 Requires: createrepo >= 0.9.7-7
-# blkid moved from e2fsprogs to util-linux-ng in 2.15.1
 %if 0%{?fedora} >= 12
 Requires: util-linux-ng >= 2.15.1
 %else
@@ -32,8 +23,6 @@ Requires: e2fsprogs
 %endif
 BuildRequires: intltool
 BuildRequires: desktop-file-utils, python
-# preupgrade's use of long append="..." strings will break older yaboot
-# and thus render ppc systems unbootable - see bug #471321
 Conflicts: yaboot < 1.3.14-8
 
 %description
@@ -73,6 +62,12 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %{python_sitelib}/%{name}
 
 %changelog
+* Wed May 12 2010 Richard Hughes <richard@hughsie.com> - 1.1.6-1
+- New upstream release.
+- Generate a valid kickstart when there is no space for the install.img
+- Ensure we disable all plugins which could cause issues with downloading
+- Translation updates
+
 * Mon Apr 26 2010 Richard Hughes <richard@hughsie.com> - 1.1.5-1
 - New upstream release.
 
