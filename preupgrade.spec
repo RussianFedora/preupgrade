@@ -2,7 +2,7 @@
 
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.6
+Version: 1.1.7
 Release: 1%{?dist}
 License: GPLv2+
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
@@ -62,6 +62,12 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %{python_sitelib}/%{name}
 
 %changelog
+* Fri May 21 2010 Richard Hughes <richard@hughsie.com> - 1.1.7-1
+- New upstream release.
+- Fixes an errant space in the kickstart file causing upgrade to fail.
+- Lots of new translations.
+- Resolves: #592345
+
 * Wed May 12 2010 Richard Hughes <richard@hughsie.com> - 1.1.6-1
 - New upstream release.
 - Generate a valid kickstart when there is no space for the install.img
