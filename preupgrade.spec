@@ -1,9 +1,7 @@
-%{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
@@ -16,17 +14,13 @@ Requires: python-urlgrabber >= 3.9.1-4
 Requires: yum-metadata-parser, yum >= 3.2.24
 Requires: usermode
 Requires: createrepo >= 0.9.7-7
-%if 0%{?fedora} >= 12
 Requires: util-linux-ng >= 2.15.1
-%else
-Requires: e2fsprogs
-%endif
 BuildRequires: intltool
 BuildRequires: desktop-file-utils, python
 Conflicts: yaboot < 1.3.14-8
 
 %description
-preupgrade prepares your Fedora system for an upgrade to the next version
+preupgrade prepares your Fedora system for upgrading to a newer version
 by examining your system, downloading all the files needed for the upgrade,
 and then setting up your system to perform the upgrade after rebooting.
 
@@ -62,6 +56,10 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %{python_sitelib}/%{name}
 
 %changelog
+* Sat Jun 05 2010 Rahul Sundaram <sundaram@fedoraproject.org> - 1.1.6-2
+- Fix description to clarify that skipping releases is ok 
+- Update spec to match current guidelines
+
 * Wed May 12 2010 Richard Hughes <richard@hughsie.com> - 1.1.6-1
 - New upstream release.
 - Generate a valid kickstart when there is no space for the install.img
