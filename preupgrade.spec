@@ -156,9 +156,8 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 * Fri May  2 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.3-1
 - 0.9.3
 
-
 * Thu May  1 2008 Seth Vidal <skvidal at fedoraproject.org> 
-- make preupgrade clean up its messes in %post so it doesn't leave
+- make preupgrade clean up its messes in post so it doesn't leave
   cruft on the fs after an upgrade.
 
 * Thu Apr 24 2008 Seth Vidal <skvidal at fedoraproject.org> - 0.9.2-1
