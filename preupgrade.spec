@@ -1,7 +1,7 @@
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
@@ -56,6 +56,9 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %{python_sitelib}/%{name}
 
 %changelog
+* Wed Jul 21 2010 David Malcolm <dmalcolm@redhat.com> - 1.1.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
+
 * Sat Jun 05 2010 Rahul Sundaram <sundaram@fedoraproject.org> - 1.1.6-2
 - Fix description to clarify that skipping releases is ok 
 - Update spec to match current guidelines
