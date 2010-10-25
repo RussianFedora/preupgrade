@@ -1,7 +1,9 @@
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.8
-Release: 1%{?dist}
+Release: 1%{?dist}.1
 License: GPLv2+
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://mirrors.fedoraproject.org/releases.txt
@@ -56,6 +58,9 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %{python_sitelib}/%{name}
 
 %changelog
+* Mon Oct 25 2010 Dan Horák <dan[at]danny.cz> - 1.1.8-1.1
+- Fix build on F-12
+
 * Thu Sep 09 2010 Richard Hughes <richard@hughsie.com> - 1.1.8-1
 - New upstream release.
 - Reinvigorate pre-upgrade-cli with the same fixes as the gui tool.
