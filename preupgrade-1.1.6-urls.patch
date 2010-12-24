@@ -1,0 +1,12 @@
+diff -urN preupgrade-1.1.6.orig/preupgrade/__init__.py preupgrade-1.1.6/preupgrade/__init__.py
+--- preupgrade-1.1.6.orig/preupgrade/__init__.py	2010-05-24 15:43:28.559288829 +0400
++++ preupgrade-1.1.6/preupgrade/__init__.py	2010-05-24 15:45:53.622289048 +0400
+@@ -63,7 +63,7 @@
+ elif os.path.exists("data/releases.txt"):
+     releasesfn = "data/releases.txt"
+ else:
+-    releasesfn = "http://mirrors.fedoraproject.org/releases.txt"
++    releasesfn = "http://russianfedora.ru/releases.txt"
+ 
+ runfile = "/var/run/preupgrade"
+ repofile = "/var/run/preupgrade.repo"

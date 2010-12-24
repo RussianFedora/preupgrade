@@ -34,15 +34,21 @@ stable=False
 preupgrade-ok=True
 version=999
 mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=rawhide&arch=$basearch
-#baseurl=http://download.fedora.redhat.com/pub/fedora/linux/development/$basearch/os
+installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/development/rawhide/$basearch/os
 
-[Fedora 13 (Branch)]
+[RFRemix 14 (Laughlin)]
 stable=False
+preupgrade-ok=True
+version=14
+mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-14&arch=$basearch
+installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/development/14/$basearch/os
+
+[RFRemix 13 (Goddard)]
+stable=True
 preupgrade-ok=True
 version=13
 mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-13&arch=$basearch
-installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/development/13/$basearch/os
-#baseurl=http://download.fedora.redhat.com/pub/fedora/linux/development/13/$basearch/os
+installurl=http://mirror.yandex.ru/fedora/russianfedora/releases/13/RFRemix/$basearch/os/
 
 [Fedora 12 (Constantine)]
 stable=True
