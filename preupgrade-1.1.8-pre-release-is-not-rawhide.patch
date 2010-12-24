@@ -1,0 +1,13 @@
+diff -urN preupgrade-1.1.8.orig/preupgrade/__init__.py preupgrade-1.1.8/preupgrade/__init__.py
+--- preupgrade-1.1.8.orig/preupgrade/__init__.py	2010-10-20 18:00:08.834805119 +0400
++++ preupgrade-1.1.8/preupgrade/__init__.py	2010-10-20 18:12:08.506616118 +0400
+@@ -239,8 +239,7 @@
+         # Rawhide is kinda special, so here's a special case for it.
+         # Unstable (pre-release) trees are basically rawhide snapshots, so they
+         # get the same treatment.
+-        if self.pu_release == 'Rawhide' or not \
+-            self.release_is_stable(self.release_map[self.pu_release]):
++        if self.pu_release == 'Rawhide':
+             # Make sure we have an install repo set up. We need that!
+             if not hasattr(self,'instrepo'):
+                 self.setup_install_repo(download_progressbar)

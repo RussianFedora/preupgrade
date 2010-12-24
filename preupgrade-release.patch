@@ -1,0 +1,15 @@
+--- preupgrade/__init__.py.original	2010-09-09 19:43:40.000000000 +0400
++++ preupgrade/__init__.py	2010-10-11 15:21:35.959298460 +0400
+@@ -200,6 +200,11 @@
+         repo.metalink = None
+         repo.basecachedir = '/var/cache/yum/'
+         repo.enablegroups = 1
++        repo.yumvar = self.conf.yumvar
++	try:
++		repo.yumvar['release'] = str(self.target_version)
++	except:
++		pass
+         # FIXME ugh REAL LOGGING DAMMIT
+         print "%s (%s) " % (id, urltype)
+         print _("  url: %s") % url
+
