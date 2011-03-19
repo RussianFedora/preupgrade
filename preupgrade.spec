@@ -3,7 +3,7 @@ Name: preupgrade
 Version: 1.1.9
 Release: 1%{?dist}.1
 License: GPLv2+
-Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
+Source: %{name}-%{version}.tar.bz2
 Source1: http://russianfedora.ru/releases.txt
 Patch0: %{name}-release.patch
 Patch1: %{name}-1.1.6-urls.patch
