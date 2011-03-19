@@ -1,16 +1,13 @@
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.8
-Release: 1%{?dist}.2
+Version: 1.1.9
+Release: 1%{?dist}.1
 License: GPLv2+
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
 Source1: http://russianfedora.ru/releases.txt
 Patch0: %{name}-release.patch
 Patch1: %{name}-1.1.6-urls.patch
-Patch2:	%{name}-1.1.8-pre-release-is-not-rawhide.patch
-Patch3:	%{name}-1.1.8-ascii-in-grub-only.patch
+Patch2: %{name}-1.1.8-pre-release-is-not-rawhide.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildArch: noarch
 Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
@@ -35,7 +32,6 @@ and then setting up your system to perform the upgrade after rebooting.
 %patch0 -p0 -b .release
 %patch1 -p1 -b .urls
 %patch2 -p1 -b .pre-release-is-not-rawhide
-%patch3 -p1 -b .ascii-in-grub-only
 
 %build
 # no op
@@ -55,7 +51,7 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %files -f %{name}.lang
 %defattr(-, root, root)
 %dir %{_datadir}/%{name}
-%doc ChangeLog README COPYING data/releases.txt
+%doc ChangeLog README COPYING
 %config(noreplace) %{_sysconfdir}/pam.d/*
 %config(noreplace) %{_sysconfdir}/security/console.apps/*
 %{_datadir}/%{name}/*
@@ -66,14 +62,13 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %{python_sitelib}/%{name}
 
 %changelog
-* Wed Oct 20 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.1.8-1.2
-- pre-release is not rawhide!!!
-- define python_sitelib to build on Fedora 12
-- grub supports only ascii symbols
-
-* Mon Oct 18 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.1.8-1.1
+* Sat Mar 18 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 1.1.9-1.1
+- use pre-release version, not rawhide
 - send also release in non stable case
 - use russianfedora release.txt
+
+* Tue Mar 15 2011 Richard Hughes <richard@hughsie.com> - 1.1.9-1
+- New upstream release.
 
 * Thu Sep 09 2010 Richard Hughes <richard@hughsie.com> - 1.1.8-1
 - New upstream release.
