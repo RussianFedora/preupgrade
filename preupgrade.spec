@@ -1,16 +1,13 @@
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-
 Summary: Prepares a system for an upgrade
 Name: preupgrade
-Version: 1.1.8
-Release: 1%{?dist}.4
+Version: 1.1.10
+Release: 1%{?dist}.R
 License: GPLv2+
 Source: https://fedorahosted.org/releases/p/r/preupgrade/%{name}-%{version}.tar.bz2
-Source1: http://russianfedora.ru/releases.txt
+Source1: http://www,rfremix.ru/releases.txt
 Patch0: %{name}-release.patch
 Patch1: %{name}-1.1.6-urls.patch
-Patch2:	%{name}-1.1.8-pre-release-is-not-rawhide.patch
-Patch3:	%{name}-1.1.8-ascii-in-grub-only.patch
+Patch2: %{name}-1.1.8-pre-release-is-not-rawhide.patch
 URL: https://fedorahosted.org/preupgrade/
 BuildArch: noarch
 Requires: python >= 2.1, rpm-python, rpm >= 0:4.1.1
@@ -35,7 +32,6 @@ and then setting up your system to perform the upgrade after rebooting.
 %patch0 -p0 -b .release
 %patch1 -p1 -b .urls
 %patch2 -p1 -b .pre-release-is-not-rawhide
-%patch3 -p1 -b .ascii-in-grub-only
 
 %build
 # no op
@@ -55,7 +51,7 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %files -f %{name}.lang
 %defattr(-, root, root)
 %dir %{_datadir}/%{name}
-%doc ChangeLog README COPYING data/releases.txt
+%doc ChangeLog README COPYING
 %config(noreplace) %{_sysconfdir}/pam.d/*
 %config(noreplace) %{_sysconfdir}/security/console.apps/*
 %{_datadir}/%{name}/*
@@ -66,21 +62,21 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %{python_sitelib}/%{name}
 
 %changelog
-* Fri Dec  3 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.1.8-1.4
-- rawhide does not support for upgrade. Drop R: rfremix-release-rawhide
-
-* Fri Oct 22 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.1.8-1.3
-- requires rawhide repo as it separate package since RFRemix 14
-  to upgrade to Rawhide
-
-* Wed Oct 20 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.1.8-1.2
-- pre-release is not rawhide!!!
-- define python_sitelib to build on Fedora 12
-- grub supports only ascii symbols
-
-* Mon Oct 18 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 1.1.8-1.1
+* Sun Nov  6 2011 Arkady L. Shane <ashejn@russianfedora.ru>  - 1.1.10-1.R
+- use pre-release version, not rawhide
 - send also release in non stable case
 - use russianfedora release.txt
+
+* Fri Oct 21 2011 Richard Hughes <richard@hughsie.com> - 1.1.10-1
+- New upstream release.
+- Recommend downloading the DVD if there is not enough space in /boot
+- Do not hardcode --location=none when upgrading to F16
+
+* Tue Mar 15 2011 Richard Hughes <richard@hughsie.com> - 1.1.9-1
+- New upstream release.
+
+* Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
 * Thu Sep 09 2010 Richard Hughes <richard@hughsie.com> - 1.1.8-1
 - New upstream release.
