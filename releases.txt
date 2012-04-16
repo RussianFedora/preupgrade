@@ -41,7 +41,7 @@ stable=False
 preupgrade-ok=True
 version=17
 mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-17&arch=$basearch
-installmirrorlist=http://mirrors.rfremix.ru/mirrorlist?path=releases/test/RFRemix/17/RFRemix/$basearch/os
+installmirrorlist=http://mirrors.rfremix.ru/mirrorlist?path=releases/test/RFRemix/17-Beta/RFRemix/$basearch/os
 
 [RFRemix 16 (Verne)]
 stable=True
