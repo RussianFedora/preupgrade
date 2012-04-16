@@ -1,7 +1,7 @@
 Summary: Prepares a system for an upgrade
 Name: preupgrade
 Version: 1.1.10
-Release: 1%{?dist}.R
+Release: 2%{?dist}
 License: GPLv2+
 Source: %{name}-%{version}.tar.bz2
 Source1: releases.txt
@@ -62,6 +62,9 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT/usr/share/preupgrade/releases.list
 %{python_sitelib}/%{name}
 
 %changelog
+* Mon Apr 16 2012 Arkady L. Shane <ashejn@russianfedora.ru>  - 1.1.10-2.R
+- rebuilt
+
 * Sun Nov  6 2011 Arkady L. Shane <ashejn@russianfedora.ru>  - 1.1.10-1.R
 - use pre-release version, not rawhide
 - send also release in non stable case
