@@ -37,24 +37,24 @@
 #installmirrorlist=http://mirrors.fedoraproject.org/mirrorlist?path=pub/fedora/linux/development/14/$basearch/os
 
 [RFRemix 17 (Beefy Miracle)]
-stable=False
+stable=True
 preupgrade-ok=True
 version=17
 mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-17&arch=$basearch
-installmirrorlist=http://mirrors.rfremix.ru/mirrorlist?path=releases/test/RFRemix/17-Beta/RFRemix/$basearch/os
+installmirrorlist=http://mirrors.rfremix.ru/mirrorlist?path=releases/RFRemix/17/RFRemix/$basearch/os
 
 [RFRemix 16 (Verne)]
 stable=True
 preupgrade-ok=True
 version=16
-mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-16&arch=$basearch
+mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-16&arch=$basearch
 installmirrorlist=http://mirrors.rfremix.ru/mirrorlist?path=releases/RFRemix/16/RFRemix/$basearch/os
 
 [RFRemix 15 (Lovelock)]
 stable=True
 preupgrade-ok=True
 version=15
-mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=fedora-15&arch=$basearch
+mirrorlist=https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-15&arch=$basearch
 installmirrorlist=http://mirrors.rfremix.ru/mirrorlist?path=releases/RFRemix/16/RFRemix/$basearch/os
 
 [RFRemix 14 (Laughlin)]
